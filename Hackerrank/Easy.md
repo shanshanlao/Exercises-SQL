@@ -100,10 +100,17 @@ LIMIT 1;
 ``` 
 
 ## Weather Observation Station 6
-
+Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
 ``` SQL
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '^[aeiou]';
 
+--OR 
 
+SELECT DISTINCT CITY 
+FROM STATION 
+WHERE lower(substr(CITY,1,1)) in ('a','e','i','o','u') ;
 ``` 
 
 ## Weather Observation Station 7
