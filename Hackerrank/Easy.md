@@ -100,95 +100,102 @@ LIMIT 1;
 ``` 
 
 ## Weather Observation Station 6
-Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
+Query the list of CITY names starting with vowels (a, e, i, o, or u) from STATION. Your result cannot contain duplicates.
 ``` SQL
 SELECT DISTINCT CITY
 FROM STATION
 WHERE CITY REGEXP '^[aeiou]';
-
---OR 
-
-SELECT DISTINCT CITY 
-FROM STATION 
-WHERE lower(substr(CITY,1,1)) in ('a','e','i','o','u') ;
 ``` 
 
 ## Weather Observation Station 7
-
+Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
 ``` SQL
-
-
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '[aeiou]$';
 ``` 
 
 ## Weather Observation Station 8
-
+Query the list of CITY names from STATION which have vowels (a, e, i, o, u) as both their first and last characters. Your result cannot contain duplicates.
 ``` SQL
-
-
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY REGEXP '^[aeiou].*[aeiou]$';
 ``` 
 
 ## Weather Observation Station 9
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
 ``` SQL
-
-
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '^[AEIOU]';
 ``` 
 
 
 ## Weather Observation Station 10
-
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
 ``` SQL
-
-
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '[AEIOU]$';
 ``` 
 
 
 ## Weather Observation Station 11
-
+Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
 ``` SQL
-
-
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '^[AEIOU].*[AEIOU]$';
 ``` 
 
 ## Weather Observation Station 12
-
+Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
 ``` SQL
-
-
+SELECT DISTINCT CITY
+FROM STATION
+WHERE CITY NOT REGEXP '^[AEIOU]' 
+AND CITY NOT REGEXP '[AEIOU]$';
 ``` 
 
 ## Weather Observation Station 13
-
+Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345. Truncate your answer to 4 decimal places.
 ``` SQL
-
-
+SELECT ROUND(SUM(LAT_N),4)
+FROM STATION
+WHERE LAT_N > 38.7880 AND LAT_N < 137.2345;
 ``` 
 
 ## Weather Observation Station 14
-
+Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. Truncate your answer to 4 decimal places.
 ``` SQL
-
-
+SELECT ROUND(MAX(LAT_N),4)
+FROM STATION
+WHERE LAT_N < 137.2345;
 ``` 
 
 ## Weather Observation Station 15
-
+Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. Round your answer to 4 decimal places.
 ``` SQL
-
-
+SELECT ROUND(LONG_W,4)
+FROM STATION
+WHERE LAT_N = (SELECT MAX(LAT_N) FROM STATION WHERE LAT_N < 137.2345);
 ``` 
 
 ## Weather Observation Station 16
-
+Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780. Round your answer to 4 decimal places.
 ``` SQL
-
-
+SELECT ROUND(MIN(LAT_N),4)
+FROM STATION
+WHERE LAT_N > 38.7780;
 ``` 
 
 ## Weather Observation Station 17
-
+Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780. Round your answer to 4 decimal places.
 ``` SQL
-
-
+SELECT ROUND(LONG_W,4)
+FROM STATION
+WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N >38.7780);
 ``` 
 
 
