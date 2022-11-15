@@ -20,13 +20,11 @@ Order by the highest number of total messages first.
 - n_messages: int
 
 ```SQL
-WITH temp AS (
-    select id_guest, sum(n_messages) as sum_n_messages
-    from airbnb_contacts
-    group by id_guest)
-
-select DENSE_RANK() OVER( ORDER BY sum_n_messages DESC) as ranking,
+select 
     id_guest,
-    sum_n_messages
-from temp;
+    DENSE_RANK() OVER( ORDER BY sum(n_messages) DESC) as ranking,
+    sum(n_messages) as sum_n_messages
+from airbnb_contacts
+group by id_guest
+order by n_messages DESC
 ```
