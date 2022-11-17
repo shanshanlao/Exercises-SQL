@@ -199,13 +199,53 @@ WHERE LAT_N = (SELECT MIN(LAT_N) FROM STATION WHERE LAT_N >38.7780);
 ``` 
 
 ## Higher Then 75 Marks
-Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
 ```SQL
 SELECT Name
 FROM STUDENTS 
 WHERE Marks > 75
 ORDER BY RIGHT(Name,3), ID;
 ```
+
+## Employee Names
+Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+```SQL
+SELECT name
+FROM Employee
+ORDER BY name;
+```
+
+## Employee Salaries
+Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than $2000 per month who have been employees for less than 10 months. Sort your result by ascending employee_id.
+```SQL
+SELECT name
+FROM Employee
+WHERE salary > 2000 AND months < 10
+ORDER BY employee_id ;
+```
+
+
+## Type of Triangle
+Write a query identifying the type of each record in the TRIANGLES table using its three side lengths. Output one of the following statements for each record in the table:
+- Equilateral: It's a triangle with 3 sides of equal length.
+- Isosceles: It's a triangle with 2 sides of equal length.
+- Scalene: It's a triangle with 3 sides of differing lengths.
+- Not A Triangle: The given values of A, B, and C don't form a triangle.
+
+```SQL
+SELECT
+CASE WHEN A+B<=C or A+C<=B or B+C<=A THEN 'Not A Triangle'
+ELSE
+    CASE 
+        WHEN A = B and B = C THEN 'Equilateral'
+        WHEN A = B or B = C or A = C THEN 'Isosceles'
+        WHEN A!=B and A!=C and B!=C THEN 'Scalene' 
+    END
+END
+FROM TRIANGLES;
+```
+
+
 
 
 
