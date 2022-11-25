@@ -9,10 +9,10 @@ Write a query to find the node type of Binary Tree ordered by the value of the n
 SELECT 
     nodes,
     CASE 
-        WHEN nodes = (SELECT N FROM BST WHERE P is null) THEN 'Root'
+        WHEN nodes = (SELECT N FROM BST WHERE P is null) THEN 'Root' -- the node is Root if it does not have a parent
         ELSE 
             CASE 
-                WHEN nodes IN (SELECT P FROM BST) THEN 'Inner'
+                WHEN nodes IN (SELECT P FROM BST) THEN 'Inner'      -- the node is Inner if it is a parent but not a root
                 ELSE 'Leaf'
             END    
     END
