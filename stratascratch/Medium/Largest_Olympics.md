@@ -29,7 +29,7 @@ order by athletes_count desc
 limit 1;
 ```
 
-## In case there are more than one games that has the same number of athletes
+## In case there are more than one game that has the same number of athletes
 ```sql
 with AC as (
     select games, COUNT(DISTINCT name) as athletes_count
