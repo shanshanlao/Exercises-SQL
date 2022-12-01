@@ -22,9 +22,23 @@ Output the Olympics along with the corresponding number of athletes.
 - medal: varchar
 
 ```sql
-select games, COUNT(DISTINCT name) as atheltes_count
+select games, COUNT(DISTINCT name) as athletes_count
 from olympics_athletes_events
 group by games
-order by atheltes_count desc
+order by athletes_count desc
 limit 1;
+```
+
+## In case there are more than one games that has the same number of athletes
+```sql
+with AC as (
+    select games, COUNT(DISTINCT name) as athletes_count
+    from olympics_athletes_events
+    group by games
+)
+
+select games, athletes_count
+from AC
+where athletes_count = (select max(athletes_count) from AC)
+order by athletes_count desc;
 ```
