@@ -11,6 +11,7 @@ The output should include the year-month date (YYYY-MM) and percentage change, r
 - purchase_id: int
 
 ```SQL
+-- 1. first extract the date value as yyyy-mm as aggregate the value based on month
 with temp as 
 (select sum(q.value) as month_revenue, q.year_month
  from (select 
@@ -19,8 +20,20 @@ with temp as
        from sf_transactions) q
   group by q.year_month)
 
+-- 3. calculate the monthly percentage
 select q2.year_month, round((month_revenue - pre_revenue)/pre_revenue*100,2) as 'revenue_diff_pct'
 from(
-    select *, lag(month_revenue,1) OVER() as 'pre_revenue'
+    select *, lag(month_revenue,1) OVER() as 'pre_revenue' -- 2. then get the revenue from previous month
     from temp) q2
+```
+
+### Simplified Query
+```sql
+select 
+        DATE_FORMAT(created_at, "%Y-%m") as ym, 
+        ROUND( (sum(value) - LAG(sum(value)) OVER()) 
+                / LAG(sum(value)) OVER() *100,2 ) as 'revenue_diff_pct'
+from sf_transactions
+group by ym
+order by ym
 ```
