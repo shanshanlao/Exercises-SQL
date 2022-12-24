@@ -25,3 +25,19 @@ ON w.id = q1.id
 AND w.coins_needed = q1.min_coins 
 ORDER BY q1.power desc, q1.age desc
 ```
+
+## MySQL without Windows Function
+```sql
+SELECT w.id, p.age, w.coins_needed, w.power
+FROM Wands w
+JOIN Wands_Property p ON w.code = p.code
+WHERE p.is_evil=0
+AND w.coins_needed = 
+    (
+        SELECT MIN(w1.coins_needed) 
+        FROM Wands w1
+        JOIN Wands_Property p1 ON w1.code = p1.code 
+        WHERE w.power = w1.power AND p.age = p1.age
+    )  -- correlated subquery
+ORDER BY w.power DESC, p.age DESC;
+```
