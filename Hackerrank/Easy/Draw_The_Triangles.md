@@ -22,6 +22,8 @@ P(R) represents a pattern drawn by Julia in R rows.
 Write a query to print the pattern P(20).
 
 ## T-SQL
+
+```sql
 DECLARE @n INT = -1;
 
 WHILE @n < 21
@@ -29,3 +31,4 @@ BEGIN
     PRINT REPLICATE('* ', @n);
     SET @n = @n + 1;
 END
+```
